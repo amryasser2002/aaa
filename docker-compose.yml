@@ -1,0 +1,30 @@
+version: "3.3"
+services:
+  node-app:
+   container_name: cont-node-app2
+   build: .
+   volumes:
+     - .\index.js:/app2:ro
+   ports:
+     - "5000:5000"
+   env_file:
+     - ./.env 
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - mongo-db:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+  nginx:
+     image: nginx:stable-alpine 
+     ports:
+      - "8080:80"
+     volumes:
+      - C:/Users/amrya/Desktop/nodeapp/nginx/default.conf:/etc/nginx/conf.d/default.conf
+     depends_on:
+      - node-app
+ 
+volumes:
+  mongo-db:

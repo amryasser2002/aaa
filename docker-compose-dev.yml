@@ -1,0 +1,14 @@
+
+services:
+  node-app:
+   container_name: cont-node-app2
+   build: 
+     context: .
+     target: development
+   volumes:
+     - .\index.js:/app2:ro
+   ports:
+     - "5000:5000"
+   env_file:
+     - ./.env
+
